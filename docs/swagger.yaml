@@ -1,0 +1,375 @@
+definitions:
+  models.Blog:
+    properties:
+      content:
+        minLength: 10
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      title:
+        minLength: 3
+        type: string
+    required:
+    - content
+    - title
+    type: object
+  models.BlogsList:
+    properties:
+      blogs:
+        items:
+          $ref: '#/definitions/models.Blog'
+        type: array
+      has_more:
+        type: boolean
+      page:
+        type: integer
+      size:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  models.BlogsSwagger:
+    properties:
+      content:
+        minLength: 10
+        type: string
+      title:
+        minLength: 3
+        type: string
+    required:
+    - content
+    - title
+    type: object
+  models.New:
+    properties:
+      content:
+        minLength: 10
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      title:
+        minLength: 3
+        type: string
+    required:
+    - content
+    - title
+    type: object
+  models.NewsList:
+    properties:
+      has_more:
+        type: boolean
+      news:
+        items:
+          $ref: '#/definitions/models.New'
+        type: array
+      page:
+        type: integer
+      size:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  models.NewsSwagger:
+    properties:
+      content:
+        minLength: 10
+        type: string
+      title:
+        minLength: 3
+        type: string
+    required:
+    - content
+    - title
+    type: object
+info:
+  contact: {}
+paths:
+  /blogs:
+    get:
+      consumes:
+      - application/json
+      description: Get all blog
+      parameters:
+      - description: title
+        in: query
+        name: title
+        type: string
+      - description: page number
+        format: page
+        in: query
+        name: page
+        type: integer
+      - description: number of elements per page
+        format: size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BlogsList'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get blogs
+      tags:
+      - blogs
+    post:
+      consumes:
+      - application/json
+      description: create new blog
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.BlogsSwagger'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new blog
+      tags:
+      - blogs
+  /blogs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete blog
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Delete blog
+      tags:
+      - blogs
+    get:
+      consumes:
+      - application/json
+      description: Get blog by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get blog
+      tags:
+      - blogs
+    put:
+      consumes:
+      - application/json
+      description: update new blog
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.BlogsSwagger'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BlogsSwagger'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Update blog
+      tags:
+      - blogs
+  /health:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"status": "Healthy!"}'
+          schema:
+            type: string
+      summary: Health check endpoint
+      tags:
+      - Health
+  /news:
+    get:
+      consumes:
+      - application/json
+      description: get all news
+      parameters:
+      - description: title
+        in: query
+        name: title
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      - description: offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.NewsList'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get all news
+      tags:
+      - news
+    post:
+      consumes:
+      - application/json
+      description: create new news
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewsSwagger'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.New'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new news
+      tags:
+      - news
+  /news/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: deleted news
+      parameters:
+      - description: news ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete news
+      tags:
+      - news
+    get:
+      consumes:
+      - application/json
+      description: get news by ID
+      parameters:
+      - description: news ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.New'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get news by ID
+      tags:
+      - news
+    put:
+      consumes:
+      - application/json
+      description: update new news
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewsSwagger'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.NewsSwagger'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Update news
+      tags:
+      - news
+swagger: "2.0"
