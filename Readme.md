@@ -35,6 +35,15 @@
 ```
     make test
 ```
+
+### Features:
+* Test coverage
+    * `70%` in repository
+    * `81%` in UseCases
+    * `78.9%` in Handlers
+
+
+
 ### SWAGGER UI:
 
 # If you run locally:
