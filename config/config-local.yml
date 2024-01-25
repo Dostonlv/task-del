@@ -19,10 +19,10 @@ logger:
   Level: info
 
 postgres:
-  PostgresqlHost: 0.0.0.0
+  PostgresqlHost: dpg-cmom238l5elc738u6t5g-a.oregon-postgres.render.com
   PostgresqlPort: 5432
   PostgresqlUser: doston
-  PostgresqlPassword: dostonlv
-  PostgresqlDbname: task
-  PostgresqlSslmode: false
+  PostgresqlPassword: 9QSwkSH70TBzvAo0KKc8cBuCLZZ0OQNa
+  PostgresqlDbname: task_uj1b
+  PostgresqlSslmode: true
   PgDriver: pgx

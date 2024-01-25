@@ -18,7 +18,7 @@ const (
 
 // Return new Postgresql db instance
 func NewPsqlDB(c *config.Config) (*sqlx.DB, error) {
-	dataSourceName := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
+	dataSourceName := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=require password=%s",
 		c.Postgres.PostgresqlHost,
 		c.Postgres.PostgresqlPort,
 		c.Postgres.PostgresqlUser,
